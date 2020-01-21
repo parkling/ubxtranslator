@@ -2,7 +2,20 @@
 
 from . import core
 
-__all__ = ['ACK_CLS', 'NAV_CLS', ]
+__all__ = ['ACK_CLS', 'NAV_CLS', 'ESF_CLS' ]
+
+ESF_CLS = core.Cls(0x10, 'ESF', [
+    core.Message(0x03, 'RAW',[
+        core.Field('reserved1', 'U4'),
+        core.RepeatedBlock('RB',[
+            core.BitField('data', 'X4', [
+                core.Flag('dataType',24,31),
+                core.Flag('dataField',0,23)
+            ]),
+            core.Field('sTtag','U4')
+        ])
+    ])
+])
 
 ACK_CLS = core.Cls(0x05, 'ACK', [
     core.Message(0x01, 'ACK', [
