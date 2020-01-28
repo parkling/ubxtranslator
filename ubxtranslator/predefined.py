@@ -14,6 +14,24 @@ ESF_CLS = core.Cls(0x10, 'ESF', [
             ]),
             core.Field('sTtag','U4')
         ])
+    ]),
+core.Message(0x02, 'MEAS',[
+        core.Field('timeTag', 'U4'),
+        core.BitField('flags', 'X2', [
+            core.Flag('numMeas', 11,15),
+            core.Flag('timeMarkSent', 0,1),
+            core.Flag('timeMarkEdge', 2,2),
+            core.Flag('calibTagVali', 3,3)
+
+        ]),
+        core.Field('id', 'U2'),
+        core.RepeatedBlock('RB',[
+            core.BitField('data', 'X4', [
+                core.Flag('dataType',24,29),
+                core.Flag('dataField',0,23)
+            ]),
+            core.Field('calibTtag','U4')
+        ])
     ])
 ])
 
