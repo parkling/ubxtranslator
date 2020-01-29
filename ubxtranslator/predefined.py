@@ -6,11 +6,14 @@ __all__ = ['ACK_CLS', 'NAV_CLS', 'ESF_CLS' ]
 
 ESF_CLS = core.Cls(0x10, 'ESF', [
     core.Message(0x03, 'RAW',[
-        core.Field('reserved1', 'U4'),
+        # core.Field('reserved1', 'U4'),
+        core.PadByte(repeat=3),
         core.RepeatedBlock('RB',[
             core.BitField('data', 'X4', [
                 core.Flag('dataType',24,32),
-                core.Flag('dataField',0,24)
+                core.Flag('dataField',0,24),
+
+
             ]),
             core.Field('sTtag','U4')
         ])
